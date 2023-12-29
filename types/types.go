@@ -28,7 +28,7 @@ type BankInformations struct {
 	Name                 string   `json:"name"`
 	Bic                  string   `json:"bic"`
 	TranscationTotalDays string   `json:"transaction_total_days"`
-	Countries            []string `json:"contries"`
+	Countries            []string `json:"countries"`
 	Logo                 string   `json:"logo"`
 }
 type BankInformationResponse struct {

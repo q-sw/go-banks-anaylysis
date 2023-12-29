@@ -53,8 +53,6 @@ func loginToNordigen(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// BUG: Doesn't return countries properly
-// INFO: Maybe need to change countries types from []String to string
 func getFrenchBanks(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" {
 		m := types.HealthCheck{
