@@ -1,11 +1,13 @@
 .PHONY: build run docker-build
 
 
-build:
-	go build -o ./bin/go-bank-analysis
+build-nordigen-client:
+	cd nordigenApiClient && \
+	go build -o ./bin/go-nordigen-client && \
+	chmod +x ./bin/go-nordigen-client 
 
-run: build
-	./bin/go-bank-analysis
+run-nordigen-client: build-nordigen-client
+	./nordigenApiClient/bin/go-nordigen-client
 
 docker-build:
 	docker build -t go-bank-analysis:${VERSION} \
