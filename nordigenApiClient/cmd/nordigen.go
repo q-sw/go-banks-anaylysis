@@ -1,4 +1,4 @@
-package nordigen
+package cmd
 
 import (
 	"encoding/json"

@@ -1,4 +1,4 @@
-package api
+package cmd
 
 import (
 	"encoding/json"
@@ -9,7 +9,6 @@ import (
 
 	"github.com/gorilla/mux"
 
-	nordigen "github.com/q-sw/go-bank-analysis/internal"
 	"github.com/q-sw/go-bank-analysis/types"
 )
 
@@ -40,7 +39,7 @@ func loginToNordigen(w http.ResponseWriter, r *http.Request) {
 				SecretID:  secretID,
 			}
 
-			n := nordigen.GetNordigenToken(s)
+			n := GetNordigenToken(s)
 			os.Setenv("TOKEN", n.Access)
 
 			m := types.LoginResponse{
@@ -72,7 +71,7 @@ func getFrenchBanks(w http.ResponseWriter, r *http.Request) {
 			}
 			json.NewEncoder(w).Encode(m)
 		} else {
-			n := nordigen.ListFrenchBank(t)
+			n := ListFrenchBank(t)
 
 			m := types.BankInformationResponse{
 				Message:    "List all French Bank successfully",
@@ -106,7 +105,7 @@ func createUserAgreement(w http.ResponseWriter, r *http.Request) {
 		} else {
 			var b types.UserAgreement
 			json.NewDecoder(r.Body).Decode(&b)
-			n := nordigen.CreateUserAgreement(t, b)
+			n := CreateUserAgreement(t, b)
 			json.NewEncoder(w).Encode(n)
 			log.Printf("%v - %v", r.URL, http.StatusOK)
 		}
@@ -135,7 +134,7 @@ func recordBank(w http.ResponseWriter, r *http.Request) {
 		} else {
 			var b types.BankRequisition
 			json.NewDecoder(r.Body).Decode(&b)
-			n := nordigen.CreateBankRequisition(t, b)
+			n := CreateBankRequisition(t, b)
 			json.NewEncoder(w).Encode(n)
 			log.Printf("%v - %v", r.URL, http.StatusOK)
 		}
@@ -166,7 +165,7 @@ func listAccounts(w http.ResponseWriter, r *http.Request) {
 			a := vars["recordId"]
 			fmt.Println(a)
 			t := os.Getenv("TOKEN")
-			n := nordigen.ListAccounts(t, a)
+			n := ListAccounts(t, a)
 
 			json.NewEncoder(w).Encode(n)
 			log.Printf("%v - %v", r.URL, http.StatusOK)
@@ -197,7 +196,7 @@ func getTransactions(w http.ResponseWriter, r *http.Request) {
 			a := vars["accountId"]
 			fmt.Println(a)
 			t := os.Getenv("TOKEN")
-			n := nordigen.GetTransactions(t, a)
+			n := GetTransactions(t, a)
 
 			json.NewEncoder(w).Encode(n)
 			log.Printf("%v - %v", r.URL, http.StatusOK)
@@ -227,7 +226,7 @@ func getBalances(w http.ResponseWriter, r *http.Request) {
 			a := vars["accountId"]
 			fmt.Println(a)
 			t := os.Getenv("TOKEN")
-			n := nordigen.GetBalance(t, a)
+			n := GetBalance(t, a)
 
 			json.NewEncoder(w).Encode(n)
 			log.Printf("%v - %v", r.URL, http.StatusOK)
