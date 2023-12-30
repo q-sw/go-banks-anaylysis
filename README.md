@@ -18,4 +18,3 @@ To build and run this project you can use the `makefile` rules described below:
 |run| Run localy the binary|`make run`|
 |docker-build| build the docker image|`make docker-build`|
 
-
