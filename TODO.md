@@ -1,6 +1,6 @@
 # TO DO list
 ## Nordigen endpoints
-- [ ] Create nordigen API endpoint
+- [x] Create nordigen API endpoint
     - [x] Login [cf documentation](https://developer.gocardless.com/bank-account-data/quick-start-guide/#step-1-get-access-token)
     - [x] list all french bank [cf documentation](https://developer.gocardless.com/bank-account-data/quick-start-guide/#step-2-choose-a-bank)
     - [x] User agreement [cf documentation](https://developer.gocardless.com/bank-account-data/quick-start-guide/#step-3-create-an-end-user-agreement)
@@ -14,12 +14,22 @@
     - [ ] list all transaction
     - [ ] get bank account balances
     - [ ] get transaction per categories
+## Storage
+- [ ] Create new connection
+- [ ] Create table at connection init
+- [ ] Insert data 
+- [ ] Update data
 
 ## General
 - [ ] Reduce the repetitive  
 exemple: in api/endpoint.go internal/nordigen.go
 
 - [ ] Improve logging and error handling
+    use slog package 
+    - [cf. this article](https://gozone.dev/how-to-use-the-new-structured-logging-package-in-go-1-21-d2b49b4f4aed)
+    - [slog documentation](https://pkg.go.dev/golang.org/x/exp/slog)
+    - [slog go blog article](https://go.dev/blog/slog)
+    - [other resources for slog](https://go.dev/wiki/Resources-for-slog)
 
 # Specification 
 ## Nordigen endpoint login
