@@ -9,6 +9,14 @@ build-nordigen-client:
 run-nordigen-client: build-nordigen-client
 	./nordigenApiClient/bin/go-nordigen-client
 
+build-recorder:
+	cd recorder && \
+	go build -o ./bin/go-recorder && \
+	chmod +x ./bin/go-recorder 
+
+run-recorder: build-nordigen-client
+	./recorder/bin/go-recorder
+
 docker-build:
 	docker build -t go-bank-analysis:${VERSION} \
 		-t go-bank-analysis:latest \
@@ -45,4 +53,30 @@ balances:
 start-db:
 	sudo docker run --name my-db -e POSTGRES_PASSWORD=monpassword \
 		-e POSTGRES_DB=bank \
+		-p 5432:5432 \
 		-d postgres:16
+stop-db:
+	sudo docker stop my-db
+
+remove-db:
+	sudo docker rm my-db
+
+start-rabitmq:
+	sudo docker run -d --name rabbitmq -p 5672:5672 \ 
+		-p 15672:15672 rabbitmq:3.12-management
+
+stop-rabbitmq:
+	sudo docker stop rabbitmq
+
+remove-rabbitmq:
+	sudo docker rm rabbitmq
+
+start-grafana:
+	sudo docker run -d --name=grafana -p 3000:3000 grafana/grafana
+
+stop grafana:
+	sudo docker stop grafana
+
+remove-grafana:
+	sudo docker rm grafana
+
