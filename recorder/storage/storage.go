@@ -4,10 +4,14 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/lib/pq"
+	"github.com/q-sw/go-bank-analysis/types"
+	"log"
 	"os"
+	"time"
 )
 
 type Storage interface {
+	AddBalance() error
 	CreateTransaction() error
 	UpdateTransaction() error
 	GetTransaction() error
@@ -85,11 +89,26 @@ func (s *PostgreSQL) createCategoriesTable() error {
 func (s *PostgreSQL) createBalanceTable() error {
 	query := `create table if not exists balance (
         id serial primary key,
-        date varchar(250),
-        amount varchar(250)
+        date timestamp,
+        amount decimal
     )`
 
 	_, err := s.db.Exec(query)
 	return err
+}
 
+func (s *PostgreSQL) AddBalance(bal *types.Balance) error {
+	log.Println("add balance")
+	r, err := s.db.Prepare("insert into balance (date, amount) values ($1, $2)")
+	if err != nil {
+		return err
+	}
+	defer r.Close()
+
+	_, err = r.Exec(time.Now(), bal.TransctionAmount.Amount)
+
+	if err != nil {
+		return err
+	}
+	return nil
 }
