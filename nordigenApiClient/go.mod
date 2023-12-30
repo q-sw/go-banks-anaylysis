@@ -11,3 +11,5 @@ require (
 	github.com/q-sw/go-bank-analysis/types v0.0.0
 	github.com/q-sw/go-bank-analysis/utils v0.0.0
 )
+
+require github.com/rabbitmq/amqp091-go v1.9.0

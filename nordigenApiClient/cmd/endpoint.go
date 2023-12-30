@@ -228,6 +228,8 @@ func getBalances(w http.ResponseWriter, r *http.Request) {
 			t := os.Getenv("TOKEN")
 			n := GetBalance(t, a)
 
+			nbyte, _ := json.Marshal(n)
+			SendMessage(nbyte)
 			json.NewEncoder(w).Encode(n)
 			log.Printf("%v - %v", r.URL, http.StatusOK)
 		}
